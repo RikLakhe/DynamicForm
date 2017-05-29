@@ -5,6 +5,7 @@
  */
 package edu.lfa.df.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,4 +21,15 @@ public class DefaultController {
     public String index(){
         return "main";
     } 
+    
+    @RequestMapping(value="/logout",method = RequestMethod.GET)
+    public String logout(HttpServletRequest req){
+        req.getSession().invalidate();
+        return "main";
+    }
+    
+    @RequestMapping(value="/login",method = RequestMethod.GET)
+    public String login(){
+        return "login";
+    }
 }

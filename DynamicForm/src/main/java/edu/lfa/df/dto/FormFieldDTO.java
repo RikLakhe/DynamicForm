@@ -10,5 +10,5 @@ package edu.lfa.df.dto;
  * @author LAKHE
  */
 public class FormFieldDTO {
-    
+    public int 
 }

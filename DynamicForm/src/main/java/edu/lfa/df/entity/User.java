@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -82,6 +83,10 @@ public class User implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "u_password")
     private String uPassword;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "u_token")
+    private String uToken;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fUId")
     private List<Form> formList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fuUId")
@@ -168,6 +173,14 @@ public class User implements Serializable {
 
     public void setUPassword(String uPassword) {
         this.uPassword = uPassword;
+    }
+
+    public String getUToken() {
+        return uToken;
+    }
+
+    public void setUToken(String uToken) {
+        this.uToken = uToken;
     }
 
     @XmlTransient

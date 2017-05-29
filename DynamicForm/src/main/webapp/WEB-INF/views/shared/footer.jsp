@@ -4,14 +4,10 @@
     Author     : LAKHE
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<br><br>
+</div>
+<div class="container" align="center" style="color: darkgrey; font-size: 12px; background: gainsboro">
+    &copy; Lakhe, 2017. All Rights Reserved.
+</div>
+</body>
 </html>

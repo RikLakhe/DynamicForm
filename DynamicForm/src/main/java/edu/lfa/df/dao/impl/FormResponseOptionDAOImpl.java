@@ -5,9 +5,14 @@
  */
 package edu.lfa.df.dao.impl;
 
-import edu.lfa.df.dao.FormResponseOption;
+import edu.lfa.df.dao.FormResponseOptionDAO;
+import edu.lfa.df.entity.FormOption;
 import edu.lfa.df.entity.FormResponseOptions;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,31 +20,63 @@ import org.springframework.stereotype.Repository;
  * @author LAKHE
  */
 @Repository(value="formresponseoptionDAO")
-public class FormResponseOptionDAOImpl implements FormResponseOption{
+public class FormResponseOptionDAOImpl implements FormResponseOptionDAO{
 
+    @Autowired
+    private SessionFactory sessionFactory;
+    private Transaction trans;
+    private Session session;
+    
     @Override
     public boolean insert(FormResponseOptions t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        trans = session.beginTransaction();
+        int result = (int) session.save(t);
+        trans.commit();
+        session.close();
+        return true;
     }
 
     @Override
     public boolean update(FormResponseOptions t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        trans = session.beginTransaction();
+        session.saveOrUpdate(t);
+        trans.commit();
+        session.close();
+        return true;
     }
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean success = false;
+        session = sessionFactory.openSession();
+        trans = session.beginTransaction();
+        FormResponseOptions formresponseoptions = (FormResponseOptions) session.get(FormResponseOptions.class, id);
+        if (formresponseoptions != null) {
+            session.delete(formresponseoptions);
+            success = true;
+        }
+        trans.commit();
+        session.close();
+        return success;
     }
 
     @Override
     public FormResponseOptions getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        FormResponseOptions formresponseoptions = (FormResponseOptions) session.get(FormResponseOptions.class, id);
+        session.close();
+        return formresponseoptions;
     }
 
     @Override
     public List<FormResponseOptions> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<FormResponseOptions> formresponseoptions = null;
+        session = sessionFactory.openSession();
+        formresponseoptions = session.createQuery("SELECT c FROM FormResponseOptions c").list();
+        session.close();
+        return formresponseoptions;
     }
     
 }
